@@ -1,0 +1,104 @@
+li{list-style: none}
+
+.area-box {
+    position: relative;
+}
+
+.area-con {
+    display: none;
+    position: absolute;
+    background: #fff;
+    z-index: 1000;
+    left: 0px;
+    width: 288px;
+    border: 1px solid #83a0ff;
+    min-height: 50px;
+}
+
+.area-con .operation {
+    background: #83a0ff;
+    margin-bottom: 4px;
+}
+
+.area-con .operation ul {
+    padding: 0px;
+    width: 100%;
+    zoom: 1;
+    overflow: hidden;
+}
+
+.area-con .operation li {
+    float: left;
+    width: 25%;
+}
+
+.area-con .operation li a {
+    display: block;
+    height: 22px;
+    line-height: 21px;
+    text-align: center;
+    color: #fff;
+}
+
+.area-con .operation li.on a {
+    background: #fff;
+    color: #83a0ff;
+}
+
+.province, .city, .area {
+    display: none;
+}
+
+.province .box {
+    zoom: 1;
+    overflow: hidden;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 4px;
+    margin-bottom: 5px;
+}
+
+.province .box.last {
+    border-bottom: none;
+}
+
+.province .box .sort {
+    float: left;
+    width: 38px;
+    height: 48px;
+    line-height: 48px;
+    color: #83a0ff;
+    text-align: center;
+    cursor: default;
+}
+
+.province .box .list {
+    float: left;
+    width: 250px;
+}
+
+.province .box .list a, .city .box a, .area .box a {
+    display: block;
+    float: left;
+    width: 40px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.province .box .list a:hover, .city .box a:hover, .area .box a:hover {
+    color: #83a0ff;
+    background: #f1f1f1;
+}
+
+.city .box, .area .box {
+    zoom: 1;
+    overflow: hidden;
+    padding: 5px 12px 10px;
+}
+
+.city .box a, .area .box a {
+    width: auto;
+    padding: 0 4px;
+    margin-right: 8px;
+}

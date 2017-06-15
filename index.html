@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="vendor.js"></script>
-    <script src="main.js"></script>
+    <script src="lib/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+
+    <script src="area.js"></script>
+    <link rel="stylesheet" href="area.css">
+
 </head>
 <body>
-<div id="testId"></div>
+<input type="text" id="testArea" autocomplete="off" readonly class="u-ipt u-ipt-lg" value="请选择城市">
+<br><br>
+<input type="text" id="testArea2" autocomplete="off" readonly class="u-ipt u-ipt-lg" value="请选择城市2">
+<script>
+    $(function(){
+        $.areaSelect({
+            id:'testArea'
+        });
+        $.areaSelect({
+            id:'testArea2'
+        });
+    })
+</script>
 </body>
 </html>
