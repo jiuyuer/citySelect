@@ -33,6 +33,7 @@ areaSelect.prototype = {
 
     _getArr: function () {
         var config = this.config;
+        return config.arrData;
         //console.log(config.arrData)
     },
 
