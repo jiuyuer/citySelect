@@ -3,26 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="lib/jquery-1.10.2.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-
     <script src="area.js"></script>
     <link rel="stylesheet" href="area.css">
-
 </head>
 <body>
-<input type="text" id="testArea" autocomplete="off" readonly class="u-ipt u-ipt-lg" value="请选择城市">
-<br><br>
-<input type="text" id="testArea2" autocomplete="off" readonly class="u-ipt u-ipt-lg" value="请选择城市2">
+<div style="padding: 30px;">
+    <header><h2>areaSelect</h2></header>
+    <br><br>
+    <!--<div class="area-box">
+        <div class="area-show">
+            <a><em>安徽省</em><span>×</span></a>
+            <a><em>安徽省</em><span>×</span></a>
+            <a><em>安徽省</em><span>×</span></a>
+            <a><em>安徽省</em><span>×</span></a>
+            <a><em>安徽省</em><span>×</span></a>
+        </div>
+    </div>-->
+    <div style="margin: 100px 0 0 150px;">
+        <div><br>
+            <button id="areaId1">click1</button>
+        </div>
+        <div><br>
+            <button id="areaId2">click2</button>
+        </div>
+        <div><br>
+            <button id="getVal1">getVal1</button>
+            <button id="getVal2">getVal2</button>
+        </div>
+    </div>
+</div>
 <script>
-    $(function(){
-        $.areaSelect({
-            id:'testArea'
-        });
-        $.areaSelect({
-            id:'testArea2'
-        });
-    })
+    var data = [{
+        area: "谯城区",
+        area_num: "谯城区_341602",
+        area_val: "341602",
+        city: "亳州市",
+        city_num: "亳州市_341600",
+        city_val: "341600",
+        prov: "安徽省",
+        prov_num: "安徽省_340000",
+        prov_val: "340000"
+    },
+        {
+            area: "涡阳县",
+            area_num: "涡阳县_341621",
+            area_val: "341621",
+            city: "亳州市",
+            city_num: "亳州市_341600",
+            city_val: "341600",
+            prov: "安徽省",
+            prov_num: "安徽省_340000",
+            prov_val: "340000"
+        }];
+    var a = area({
+        id: 'areaId1',
+        isArea: true,
+        multiple: true,
+        arrData: data
+    }).init();
+
+    var d = area({
+        id: 'areaId2',
+        isArea: false
+    }).init();
+
+    $('#getVal1').click(function () {
+        a._getArr();
+    });
+    $('#getVal2').click(function () {
+        d._getArr();
+    });
 </script>
 </body>
 </html>

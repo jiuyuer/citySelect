@@ -12,7 +12,9 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'builds'),
-        filename: '[name].js'
+        filename: '[name].js',
+        library: 'area',
+        libraryTarget: "umd"
     },
     devServer: {
         historyApiFallback: true,
