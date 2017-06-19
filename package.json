@@ -4,7 +4,7 @@
   "description": "city of select",
   "main": "./builds/area.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack -p",
     "dev": "webpack-dev-server --hot --inline"
   },
   "repository": {

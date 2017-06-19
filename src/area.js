@@ -96,8 +96,21 @@ areaSelect.prototype = {
             areaObj.prov_val = that._cutCoding(areaObj.prov_num);
             var city = '';
             $.each(jsonArea[areaObj.prov_num], function (value) {
-                var cityText = that._cutField(value);
-                city += '<a data-num="' + value + '" href="javascript:">' + cityText + '</a>';
+                var _val = value;
+                var _isF = false;
+                var cityText = that._cutField(_val);
+                if (config.arrData.length > 0) {
+                    $.each(config.arrData, function (index, value) {
+                        if (value.city_num == _val) {
+                            _isF = true;
+                        }
+                    });
+                }
+                if(_isF && !config.isArea){
+                    city += '<a class="on" data-num="' + _val + '" href="javascript:">' + cityText + '</a>';
+                }else{
+                    city += '<a data-num="' + _val + '" href="javascript:">' + cityText + '</a>';
+                }
             });
             obj.city.children('.box').html('').append(city);
             obj.operation.find('a').eq(1).trigger("click");
@@ -105,40 +118,47 @@ areaSelect.prototype = {
 
         //市
         obj.city.off('click.city').on('click.city', 'a', function () {
-            var isIn = true;
+            var $this = $(this);
             areaObj.city_num = $(this).data('num');
             areaObj.city = that._cutField(areaObj.city_num);
             areaObj.city_val = that._cutCoding(areaObj.city_num);
             if (config.isArea) {
                 var area = '';
                 $.each(jsonArea[areaObj.prov_num][areaObj.city_num], function (index, value) {
-                    var areaText = that._cutField(value);
-                    area += '<a data-num="' + value + '" href="javascript:">' + areaText + '</a>';
+                    var _val = value;
+                    var _isF = false;
+                    var areaText = that._cutField(_val);
+                    if (config.arrData.length > 0) {
+                        $.each(config.arrData, function (index, value) {
+                            if (value.area_num == _val) {
+                                _isF = true;
+                            }
+                        });
+                    }
+                    if(_isF){
+                        area += '<a class="on" data-num="' + _val + '" href="javascript:">' + areaText + '</a>';
+                    }else{
+                        area += '<a data-num="' + _val + '" href="javascript:">' + areaText + '</a>';
+                    }
                 });
                 obj.area.children('.box').html('').append(area);
                 obj.operation.find('a').eq(2).trigger("click");
             } else {
+                var isIn = true;
                 $.each(config.arrData, function (index, value) {
                     if (areaObj.city_val == value.city_val) {
                         isIn = false;
                     }
                 });
                 if (isIn) {
-                    var arr = $.extend(true, {}, areaObj);
-                    if (config.multiple) {
-                        config.arrData.push(arr);
-                    } else {
-                        config.arrData = [];
-                        config.arrData.push(arr);
-                    }
-                    that._showDom(config);
-                    obj.$elem.trigger("click");
+                    that._operate(obj,areaObj,config,$this);
                 }
             }
         });
 
         //区
         obj.area.off('click.area').on('click.area', 'a', function () {
+            var $this = $(this);
             var isIn = true;
             areaObj.area_num = $(this).data('num');
             areaObj.area = that._cutField(areaObj.area_num);
@@ -150,19 +170,27 @@ areaSelect.prototype = {
                 }
             });
             if (isIn) {
-                var arr = $.extend(true, {}, areaObj);
-                if (config.multiple) {
-                    config.arrData.push(arr);
-                } else {
-                    config.arrData = [];
-                    config.arrData.push(arr);
-                }
-                that._showDom(config);
-                obj.$elem.trigger("click");
+                that._operate(obj,areaObj,config,$this);
             }
         });
         return that;
     },
+
+    //提取公用操作
+    _operate:function (obj,areaObj,config,$this) {
+        var arr = $.extend(true, {}, areaObj);
+        if (config.multiple) {
+            config.arrData.push(arr);
+            $this.addClass('on');
+        } else {
+            config.arrData = [];
+            config.arrData.push(arr);
+            $this.addClass('on').siblings().removeClass('on');
+        }
+        this._showDom(config);
+        obj.$elem.trigger("click");
+    },
+
     //截取字段
     _cutField: function (text) {
         var len = text.indexOf('_');
@@ -200,12 +228,15 @@ areaSelect.prototype = {
         var showText = '';
         $.each(config.arrData, function (index, value) {
             var _str = '';
+            var _val = '';
             if (config.isArea) {
                 _str = value.prov + "-" + value.city + "-" + value.area
+                _val = value.area_num;
             } else {
                 _str = value.prov + "-" + value.city;
+                _val = value.city_num;
             }
-            showText += '<a><em>' + _str + '</em><span>×</span></a>';
+            showText += '<a data-num="'+ _val +'"><em>' + _str + '</em><span>×</span></a>';
         });
         wrap.append(showText);
         $('#' + config.id).closest('.area-box').prepend(wrap);
@@ -216,8 +247,11 @@ areaSelect.prototype = {
     _removeDom: function (config) {
         var $show = $('#' + config.id).closest('.area-box').find('.area-show');
         $($show).off('click.remove').on('click.remove', 'a span', function () {
-            var index = $(this).closest('a').index();
+            var $a = $(this).closest('a');
+            var index = $a.index();
+            var _val = $a.data('num');
             config.arrData.splice(index, 1);
+            $('a[data-num="'+ _val +'"]').removeClass('on');
             $(this).closest('a').remove();
         });
         return this;

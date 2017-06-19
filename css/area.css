@@ -157,3 +157,8 @@
     padding: 0 2px;
     margin-right: 5px;
 }
+
+.area-con .city .box a.on, .area-con .area .box a.on{
+    color: #83a0ff;
+    background: #f1f1f1;
+}
