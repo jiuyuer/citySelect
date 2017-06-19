@@ -1,5 +1,9 @@
 # citySelect
 
+```
+npm install --save-dev
+```
+
 #### 数据结构：
 ```
 {
@@ -25,6 +29,5 @@ var d = area({
 }).init();
 
 d._getArr();            //用于传值
-
 ```
 
