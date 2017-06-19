@@ -1,5 +1,7 @@
 # citySelect
 
+citySelect —— 省市区选择控件。
+
 ```
 npm install --save-dev
 ```
