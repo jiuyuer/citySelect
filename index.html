@@ -2,44 +2,159 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>citySelect</title>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <script src="area.js"></script>
     <link rel="stylesheet" href="area.css">
+    <style>
+        .demo-con {
+            width: 50em;
+            margin: 40px 90px 60px;
+            padding: 15px;
+            border-radius: 10px;
+            border: solid #f5f5f5 1px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+            background: #fff;
+            min-height: 640px;
+            font-size: 12px;
+        }
+
+        .demo-con h2 {
+            clear: both;
+            font-size: 1.4em;
+            height: 2em;
+            margin-bottom: 10px;
+            line-height: 2em;
+            text-align: center;
+            color: #FFF;
+            background: #64B557;
+            font-weight: bold;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+        .demo-con h4 {
+            color: #000;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-<div style="padding: 30px;">
-    <header><h2>areaSelect</h2></header>
-    <br><br>
-    <div style="margin: 100px 0 0 150px;">
-        <div><br>
-            <button id="areaId1">click1</button>
-        </div>
-        <div><br>
-            <button id="areaId2">click2</button>
-        </div>
-        <div><br>
-            <button id="getVal1">getVal1</button>
-            <button id="getVal2">getVal2</button>
-        </div>
-        <div id="getVal1Con"></div>
-        <br><br>
-        <div id="getVal2Con"></div>
-    </div>
-</div>
-<script>
-    var data = [{
-        area: "谯城区",
-        area_num: "谯城区_341602",
-        area_val: "341602",
-        city: "亳州市",
-        city_num: "亳州市_341600",
-        city_val: "341600",
-        prov: "安徽省",
-        prov_num: "安徽省_340000",
-        prov_val: "340000"
-    },
+<div class="demo-con">
+    <h2>citySelect 配置参数演示</h2>
+    <h4>1. 数据结构</h4>
+    <p>目前数据的存储以下面的结果执行</p>
+    <pre class="brush: js;">
+        var data = [{
+            area: "谯城区",
+            area_num: "谯城区_341602",
+            area_val: "341602",
+            city: "亳州市",
+            city_num: "亳州市_341600",
+            city_val: "341600",
+            prov: "安徽省",
+            prov_num: "安徽省_340000",
+            prov_val: "340000"
+        }]
+    </pre>
+    <h4>2. 调用方法</h4>
+    <p>方法说明可看注释</p>
+    <pre class="brush: js;">
+        var d = area({
+            id : myId,          //触发事件id，比如a标签，input，必填
+            isArea: true,       //默认省市区选择，false为省市
+            multiple: false,    //默认单选，false为多选
+            arrData: []         //选中或者回显数组
+        }).init();
+
+        d._getArr();            //用于传值
+    </pre>
+
+
+    <h4>3. 省市区单选</h4>
+    <p>HTML代码:</p>
+    <pre class="brush: html;">
+        &lt;button id="areaId1"&gt;运行»&lt;/button&gt;
+    </pre>
+    <p>js代码:</p>
+    <pre class="brush: js;">
+        var a = area({
+            id: 'areaId1'
+        }).init();
+    </pre>
+    <p>
+        <button id="areaId1">运行»</button>
+    </p>
+    <h4>4. 省市单选</h4>
+    <p>HTML代码:</p>
+    <pre class="brush: html;">
+        &lt;button id="areaId2"&gt;运行»&lt;/button&gt;
+    </pre>
+    <p>js代码:</p>
+    <pre class="brush: js;">
+        var b = area({
+            id: 'areaId2',
+            isArea: false
+        }).init();
+    </pre>
+    <p>
+        <button id="areaId2">运行»</button>
+    </p>
+
+    <h4>5. 省市区多选</h4>
+    <p>HTML代码:</p>
+    <pre class="brush: html;">
+        &lt;button id="areaId3"&gt;运行»&lt;/button&gt;
+    </pre>
+    <p>js代码:</p>
+    <pre class="brush: js;">
+        var c = area({
+            id: 'areaId3',
+            multiple: true
+        }).init();
+    </pre>
+    <p>
+        <button id="areaId3">运行»</button>
+    </p>
+
+    <h4>6. 省市多选</h4>
+    <p>HTML代码:</p>
+    <pre class="brush: html;">
+        &lt;button id="areaId4"&gt;运行»&lt;/button&gt;
+    </pre>
+    <p>js代码:</p>
+    <pre class="brush: js;">
+        var d = area({
+            id: 'areaId4',
+            multiple: true,
+            isArea: false
+        }).init();
+    </pre>
+    <p>
+        <button id="areaId4">运行»</button>
+    </p>
+
+    <h4>7. 数据回显</h4>
+    <p>数据结构必须要正确</p>
+    <p>HTML代码:</p>
+    <pre class="brush: html;">
+        &lt;button id="areaId5"&gt;运行»&lt;/button&gt;
+    </pre>
+    <p>js代码:</p>
+    <pre class="brush: js;">
+        var data = [
+        {
+            area: "谯城区",
+            area_num: "谯城区_341602",
+            area_val: "341602",
+            city: "亳州市",
+            city_num: "亳州市_341600",
+            city_val: "341600",
+            prov: "安徽省",
+            prov_num: "安徽省_340000",
+            prov_val: "340000"
+        },
         {
             area: "涡阳县",
             area_num: "涡阳县_341621",
@@ -51,24 +166,93 @@
             prov_num: "安徽省_340000",
             prov_val: "340000"
         }];
-    var a = area({
-        id: 'areaId1',
-        isArea: true,
-        multiple: true,
-        arrData: data
-    }).init();
 
-    var d = area({
+        var e = area({
+            id: 'areaId5',
+            multiple: true,
+            arrData:data
+        }).init();
+    </pre>
+    <p>
+        <button id="areaId5">运行»</button>
+    </p>
+
+    <h4>8. 取值</h4>
+    <p>取值之后存入后台，与服务开发人员交互</p>
+    <p>HTML代码:</p>
+    <pre class="brush: html;">
+        &lt;div id="getValCon" &gt;&lt;/div&gt;
+        &lt;button id="getVal"&gt;运行»&lt;/button&gt;
+    </pre>
+    <p>js代码:</p>
+    <pre class="brush: js;">
+        $('#getVal').click(function () {
+            $('#getValCon').html(JSON.stringify(e._getArr()));
+        });
+    </pre>
+    <p>
+        <button id="getVal">运行»</button>
+    </p>
+    <div id="getValCon"></div>
+</div>
+<script>
+    var data = [
+        {
+            area: "谯城区",
+            area_num: "谯城区_341602",
+            area_val: "341602",
+            city: "亳州市",
+            city_num: "亳州市_341600",
+            city_val: "341600",
+            prov: "安徽省",
+            prov_num: "安徽省_340000",
+            prov_val: "340000"
+        },
+        {
+            area: "涡阳县",
+            area_num: "涡阳县_341621",
+            area_val: "341621",
+            city: "亳州市",
+            city_num: "亳州市_341600",
+            city_val: "341600",
+            prov: "安徽省",
+            prov_num: "安徽省_340000",
+            prov_val: "340000"
+        }
+    ];
+    var a = area({
+        id: 'areaId1'
+    }).init();
+    var b = area({
         id: 'areaId2',
         isArea: false
     }).init();
+    var c = area({
+        id: 'areaId3',
+        multiple: true
+    }).init();
+    var d = area({
+        id: 'areaId4',
+        multiple: true,
+        isArea: false
+    }).init();
+    var e = area({
+        id: 'areaId5',
+        multiple: true,
+        arrData:data
+    }).init();
 
-    $('#getVal1').click(function () {
-        $('#getVal1Con').html(JSON.stringify(a._getArr()));
-    });
-    $('#getVal2').click(function () {
-        $('#getVal2Con').html(JSON.stringify(d._getArr()));
+    $('#getVal').click(function () {
+        $('#getValCon').html(JSON.stringify(e._getArr()));
     });
 </script>
+<!--代码高亮显示-->
+<script src="http://www.webcjs.com/Style/lh/scripts/shCore.js" type="text/javascript"></script>
+<script src="http://www.webcjs.com/Style/lh/scripts/shBrushJScript.js" type="text/javascript"></script>
+<script src="http://www.webcjs.com/Style/lh/scripts/shBrushXml.js" type="text/javascript"></script>
+<script src="http://www.webcjs.com/Style/lh/scripts/shBrushCss.js" type="text/javascript"></script>
+<link href="http://www.webcjs.com/Style/lh/styles/shCoreDjango.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+<!--end-->
 </body>
 </html>
