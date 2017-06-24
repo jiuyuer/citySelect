@@ -12,15 +12,6 @@
 <div style="padding: 30px;">
     <header><h2>areaSelect</h2></header>
     <br><br>
-    <!--<div class="area-box">
-        <div class="area-show">
-            <a><em>安徽省</em><span>×</span></a>
-            <a><em>安徽省</em><span>×</span></a>
-            <a><em>安徽省</em><span>×</span></a>
-            <a><em>安徽省</em><span>×</span></a>
-            <a><em>安徽省</em><span>×</span></a>
-        </div>
-    </div>-->
     <div style="margin: 100px 0 0 150px;">
         <div><br>
             <button id="areaId1">click1</button>
@@ -32,6 +23,9 @@
             <button id="getVal1">getVal1</button>
             <button id="getVal2">getVal2</button>
         </div>
+        <div id="getVal1Con"></div>
+        <br><br>
+        <div id="getVal2Con"></div>
     </div>
 </div>
 <script>
@@ -70,10 +64,10 @@
     }).init();
 
     $('#getVal1').click(function () {
-        a._getArr();
+        $('#getVal1Con').html(JSON.stringify(a._getArr()));
     });
     $('#getVal2').click(function () {
-        d._getArr();
+        $('#getVal2Con').html(JSON.stringify(d._getArr()));
     });
 </script>
 </body>

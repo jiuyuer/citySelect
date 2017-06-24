@@ -2,6 +2,8 @@
 
 citySelect —— 省市区选择控件。
 
+[简单示例](http://www.webcjs.com/demo/cityselect/)
+
 ```
 npm install --save-dev
 ```
